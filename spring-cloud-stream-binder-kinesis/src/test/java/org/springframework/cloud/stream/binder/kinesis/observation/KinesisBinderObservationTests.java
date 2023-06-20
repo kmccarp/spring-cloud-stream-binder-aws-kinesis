@@ -83,7 +83,7 @@ public class KinesisBinderObservationTests implements LocalstackContainerTest {
 
 	private static final TestSpanHandler SPANS = new TestSpanHandler();
 
-	private static KinesisAsyncClient AMAZON_KINESIS;
+	private static KinesisAsyncClient amazonKinesis;
 
 	@Autowired
 	private CountDownLatch messageBarrier;
@@ -93,7 +93,7 @@ public class KinesisBinderObservationTests implements LocalstackContainerTest {
 
 	@BeforeAll
 	static void setup() {
-		AMAZON_KINESIS = LocalstackContainerTest.kinesisClient();
+		amazonKinesis = LocalstackContainerTest.kinesisClient();
 	}
 
 	@Test
@@ -127,7 +127,7 @@ public class KinesisBinderObservationTests implements LocalstackContainerTest {
 
 		@Bean(destroyMethod = "")
 		public KinesisAsyncClient amazonKinesis() {
-			return AMAZON_KINESIS;
+			return amazonKinesis;
 		}
 
 		@Bean
