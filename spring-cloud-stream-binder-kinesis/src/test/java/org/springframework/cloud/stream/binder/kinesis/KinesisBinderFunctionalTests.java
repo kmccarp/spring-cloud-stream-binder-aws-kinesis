@@ -68,7 +68,7 @@ public class KinesisBinderFunctionalTests implements LocalstackContainerTest {
 
 	static final String KINESIS_STREAM = "test_stream";
 
-	private static KinesisAsyncClient AMAZON_KINESIS;
+	private static KinesisAsyncClient amazonKinesis;
 
 	@Autowired
 	private ObjectMapper objectMapper;
@@ -81,7 +81,7 @@ public class KinesisBinderFunctionalTests implements LocalstackContainerTest {
 
 	@BeforeAll
 	static void setup() {
-		AMAZON_KINESIS = LocalstackContainerTest.kinesisClient();
+		amazonKinesis = LocalstackContainerTest.kinesisClient();
 	}
 
 	@Test
@@ -106,7 +106,7 @@ public class KinesisBinderFunctionalTests implements LocalstackContainerTest {
 		}
 		putRecordsRequest.records(putRecordsRequestEntryList);
 
-		AMAZON_KINESIS.putRecords(putRecordsRequest.build());
+		amazonKinesis.putRecords(putRecordsRequest.build());
 
 		assertThat(this.messageBarrier.await(30, TimeUnit.SECONDS)).isTrue();
 
@@ -138,7 +138,7 @@ public class KinesisBinderFunctionalTests implements LocalstackContainerTest {
 
 		@Bean(destroyMethod = "")
 		public KinesisAsyncClient amazonKinesis() {
-			return AMAZON_KINESIS;
+			return amazonKinesis;
 		}
 
 		@Bean
