@@ -218,7 +218,7 @@ public class KinesisMessageChannelBinder extends
 			@Nullable MessageChannel errorChannel) {
 
 		FunctionExpression<Message<?>> partitionKeyExpression =
-				new FunctionExpression<>((m) ->
+				new FunctionExpression<>(m ->
 						m.getHeaders().containsKey(BinderHeaders.PARTITION_HEADER)
 								? m.getHeaders().get(BinderHeaders.PARTITION_HEADER)
 								: m.getPayload().hashCode());
@@ -305,7 +305,7 @@ public class KinesisMessageChannelBinder extends
 									}
 									else {
 										this.partitionKeyExtractorStrategy =
-												(message) ->
+												message ->
 														producerProperties.getPartitionKeyExpression()
 																.getValue(KinesisMessageChannelBinder.this.evaluationContext,
 																		message);
@@ -420,7 +420,7 @@ public class KinesisMessageChannelBinder extends
 		}
 		else {
 			// Defer byte[] conversion to the InboundContentTypeConvertingInterceptor
-			adapter.setConverter((bytes) -> bytes);
+			adapter.setConverter(bytes -> bytes);
 		}
 
 		ErrorInfrastructure errorInfrastructure = registerErrorInfrastructure(destination, consumerGroup, properties);
@@ -519,7 +519,7 @@ public class KinesisMessageChannelBinder extends
 		}
 		else {
 			// Defer byte[] conversion to the InboundContentTypeConvertingInterceptor
-			adapter.setConverter((bytes) -> bytes);
+			adapter.setConverter(bytes -> bytes);
 		}
 
 		adapter.setCheckpointMode(kinesisConsumerProperties.getCheckpointMode());
